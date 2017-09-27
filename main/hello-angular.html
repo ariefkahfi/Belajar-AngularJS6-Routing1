@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello Angular</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+
+</head>
+
+    <style>
+        a{
+            display: block;
+            margin-bottom: 10px;
+        }
+    </style>
+
+<body  ng-app="routeApp">
+
+    <input type="text" ng-model="nama"/>
+
+
+    <a href="#!/home">
+      Home Page
+    </a>
+
+    <a href="#!/page1">
+      Page One
+    </a>
+
+    <a href="#!/page2">
+      Page Two
+    </a>
+
+    <a href='#!/page-param/{{nama}}'>
+        Page Param
+    </a>
+
+    <div ng-view></div>
+
+</body>
+    <script>
+        var app  = angular.module('routeApp',['ngRoute']);
+
+
+        app.config(function ($routeProvider){
+           $routeProvider.
+           when('/page-param/:p1',{
+                templateUrl:"../pages/PageParam.html",
+                controller:"paramController"
+           }).
+
+               when('/home',{
+               templateUrl:"../pages/HomePage.html",
+               controller:"home"
+           })
+              .when('/page1',{
+              templateUrl:"../pages/PageOne.html",
+              controller:"pageOneControlller"
+           })
+
+               .when('/page2',{
+               templateUrl:"../pages/PageTwo.html",
+               controller:"pageTwoController"
+           })
+               .otherwise({
+                 template:"<h4>Hello World</h4>" +
+                 "<a href='#!/home'>Home Page</a>"
+           });
+        });
+
+
+
+    </script>
+
+    <script src="../controllers/HomeController.js"></script>
+    <script src="../controllers/PageOneController.js"></script>
+    <script src="../controllers/PageTwoController.js"></script>
+    <script src="../paramcontrollers/MyParamController.js"></script>
+</html>
